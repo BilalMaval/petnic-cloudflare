@@ -21,7 +21,7 @@
   // ISR / page cache storage.
   // Create first:  npx wrangler r2 bucket create petnic-next-cache
   "r2_buckets": [
-    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "petnic-next-cache" }
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "petnic-next-cache-cf-deployment" }
   ],
 
   // Tag cache so revalidatePath()/revalidateTag() work.
