@@ -1,0 +1,47 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "petnic-studio",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true },
+
+  // Image optimisation for next/image (Cloudflare Images binding).
+  "images": { "binding": "IMAGES" },
+
+  // Lets the Worker call itself (needed by the revalidation queue).
+  "services": [
+    { "binding": "WORKER_SELF_REFERENCE", "service": "petnic-studio" }
+  ],
+
+  // ISR / page cache storage.
+  // Create first:  npx wrangler r2 bucket create petnic-next-cache
+  "r2_buckets": [
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "petnic-next-cache" }
+  ],
+
+  // Tag cache so revalidatePath()/revalidateTag() work.
+  // Create first:  npx wrangler d1 create petnic-next-tag-cache
+  // then paste the returned database_id below.
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "petnic-next-tag-cache",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+
+  // Queue that performs time-based revalidation (revalidate = 300 etc).
+  "durable_objects": {
+    "bindings": [
+      { "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DOQueueHandler"] }
+  ]
+}

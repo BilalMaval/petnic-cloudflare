@@ -1,3 +1,5 @@
+const { initOpenNextCloudflareForDev } = require('@opennextjs/cloudflare');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -13,3 +15,6 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// Lets `next dev` use Cloudflare bindings locally.
+initOpenNextCloudflareForDev();

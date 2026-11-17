@@ -132,3 +132,8 @@ credentials.json
 .credentials
 .next/dev/cache/turbopack/23c46498/00004117.sst
 memory/test_credentials.md
+
+# Cloudflare / OpenNext
+.open-next
+.wrangler
+.dev.vars
