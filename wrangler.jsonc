@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "petnic-studio",
+  "name": "petnic-cloudflare",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -15,7 +15,7 @@
 
   // Lets the Worker call itself (needed by the revalidation queue).
   "services": [
-    { "binding": "WORKER_SELF_REFERENCE", "service": "petnic-studio" }
+    { "binding": "WORKER_SELF_REFERENCE", "service": "petnic-cloudflare" }
   ],
 
   // ISR / page cache storage.

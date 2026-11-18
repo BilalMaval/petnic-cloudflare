@@ -38,10 +38,10 @@ Note: the Supabase service-role value is also used at build time if any page rea
 ## Connect GitHub to Workers Builds
 1. Push the `cloudflare` branch to GitHub (only when you decide).
 2. Cloudflare dashboard -> Workers & Pages -> Create -> Import a repository -> pick the repo and the `cloudflare` branch.
-3. Worker name: `petnic-studio` (must match `wrangler.jsonc`).
+3. Worker name: `petnic-cloudflare` (must match `wrangler.jsonc`).
 4. Build command: `npx opennextjs-cloudflare build`; Deploy command: `npx opennextjs-cloudflare deploy`.
 5. Add the build variables and runtime secrets above.
-6. Save and deploy. Your URL is `https://petnic-studio.<your-subdomain>.workers.dev`.
+6. Save and deploy. Your URL is `https://petnic-cloudflare.<your-subdomain>.workers.dev`.
 
 ## Keep pointing at production
 Live Stripe and PayPal webhooks must keep targeting `petnicstudio.com`. At domain switch time update: Stripe webhook endpoint, PayPal webhook endpoint (and `PAYPAL_WEBHOOK_ID` if a new one is created), Supabase auth redirect/site URL, `NEXT_PUBLIC_SITE_URL`, Google Search Console, and Brevo links.
