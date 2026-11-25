@@ -14,7 +14,14 @@ export async function POST(request) {
     const stripe = stripeClient;
     let event;
 
-    if (webhookSecret && signature) {
+    if (webhookSecret) {
+      // A secret is configured, so every request MUST carry a valid signature.
+      // Never fall back to trusting an unsigned body: anyone could post a fake
+      // "paid" event for their own checkout session.
+      if (!signature) {
+        console.error('Webhook rejected: missing stripe-signature header');
+        return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
+      }
       try {
         event = await stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
       } catch (err) {
